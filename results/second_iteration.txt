@@ -1,0 +1,143 @@
+====================================================================================================
+MODEL VALIDATION - TRUE vs PREDICTED (ENHANCED)
+====================================================================================================
+
+Loading enhanced training data...
+  ✓ Loaded 137 samples
+  ✓ Enhanced features: 86 features
+
+Test set: 28 samples
+
+Loading enhanced trained models...
+  ✓ Loaded threshold_model_enhanced.pkl
+  ✓ Loaded runtime_model_enhanced.pkl
+
+====================================================================================================
+THRESHOLD CLASSIFIER - TEST SET PREDICTIONS
+====================================================================================================
+
+Detailed Predictions:
+----------------------------------------------------------------------------------------------------
+File                                     Config            True    Raw  Final   Conf Status    
+----------------------------------------------------------------------------------------------------
+wstate_indep_qiskit_130.qasm             GPU/double           2      2      2  92.0% ✓ EXACT   
+ghz_indep_qiskit_100.qasm                GPU/double           2      2      2  99.9% ✓ EXACT   
+cutbell_n30_k6.qasm                      CPU/single           2      2      2  88.7% ✓ EXACT   
+ghz_indep_qiskit_15.qasm                 CPU/single           2      2      2  97.7% ✓ EXACT   
+qpeexact_indep_qiskit_30.qasm            GPU/single           1      1      1  94.2% ✓ EXACT   
+ghz_indep_qiskit_30.qasm                 CPU/double           2      2      2  99.8% ✓ EXACT   
+grover-v-chain_indep_qiskit_17.qasm      CPU/double           1      1      1  89.3% ✓ EXACT   
+groundstate_large_indep_qiskit_14.qasm   GPU/double           8      8      8  73.2% ✓ EXACT   
+ae_indep_qiskit_20.qasm                  CPU/double           4      4      4  81.9% ✓ EXACT   
+dj_indep_qiskit_30.qasm                  GPU/double           1      1      1  96.9% ✓ EXACT   
+shor_15_4_indep_qiskit_18.qasm           CPU/double           4      4      4  71.7% ✓ EXACT   
+ghz_indep_qiskit_100.qasm                GPU/single           2      2      2  99.9% ✓ EXACT   
+grover-noancilla_indep_qiskit_7.qasm     GPU/double           1      1      1  96.3% ✓ EXACT   
+qnn_indep_qiskit_20.qasm                 CPU/double          32     32    256  66.5% ⚠️  OVER   [BUMP]
+ghz_indep_qiskit_30.qasm                 GPU/single           2      2      2  99.8% ✓ EXACT   
+wstate_indep_qiskit_130.qasm             GPU/single           2      2      2  92.0% ✓ EXACT   
+portfolioqaoa_indep_qiskit_17.qasm       GPU/double          16     16     16  82.5% ✓ EXACT   
+grover-v-chain_indep_qiskit_17.qasm      GPU/double           1      1      1  89.3% ✓ EXACT   
+qaoa_indep_qiskit_16.qasm                CPU/double           1      1      1  86.3% ✓ EXACT   
+groundstate_large_indep_qiskit_14.qasm   CPU/double           8      8      8  73.2% ✓ EXACT   
+qft_indep_qiskit_15.qasm                 GPU/double           1      1      1  92.2% ✓ EXACT   
+portfolioqaoa_indep_qiskit_17.qasm       CPU/single          16     16     16  82.0% ✓ EXACT   
+portfolioqaoa_indep_qiskit_17.qasm       GPU/single          16     16     16  82.0% ✓ EXACT   
+qftentangled_indep_qiskit_30.qasm        GPU/single           2      2      2  85.0% ✓ EXACT   
+dj_indep_qiskit_15.qasm                  GPU/single           1      1      1  93.4% ✓ EXACT   
+qft_indep_qiskit_30.qasm                 GPU/double           1      1      1  94.7% ✓ EXACT   
+qpeexact_indep_qiskit_30.qasm            CPU/double           1      1      1  93.9% ✓ EXACT   
+grover-noancilla_indep_qiskit_11.qasm    GPU/double           1      1      1  96.0% ✓ EXACT   
+----------------------------------------------------------------------------------------------------
+
+Summary Statistics:
+  Overall Accuracy:     96.4%
+  Exact Predictions:    27/28 (96.4%)
+  Over-predictions:     1/28 (3.6%) - SAFE
+  Under-predictions:    0/28 (0.0%) - DANGEROUS!
+
+  ✅ PERFECT: Zero under-predictions! No risk of automatic zeros.
+
+Confusion Matrix:
+
+True \ Pred      1     2     4     8    16    32   256
+------------------------------------------------------
+1               11                                    
+2                      9                              
+4                            2                        
+8                                  2                  
+16                                       3            
+32                                              ⚠    1
+256                                                   
+
+====================================================================================================
+RUNTIME REGRESSOR - TEST SET PREDICTIONS
+====================================================================================================
+
+Detailed Predictions:
+----------------------------------------------------------------------------------------------------
+File                                     Config            True (s)   Pred (s)  Error (s)    Error %
+----------------------------------------------------------------------------------------------------
+qnn_indep_qiskit_20.qasm                 CPU/single           24.69      20.35      -4.35     -17.6%
+qnn_indep_qiskit_20.qasm                 CPU/double           49.92      35.50     -14.42     -28.9%
+dj_indep_qiskit_130.qasm                 GPU/single          508.99     501.12      -7.86      -1.5%
+ghz_indep_qiskit_130.qasm                CPU/single           35.56      30.24      -5.32     -15.0%
+vqe_indep_qiskit_16.qasm                 GPU/double            5.28       7.07      +1.79     +33.9%
+portfolioqaoa_indep_qiskit_17.qasm       GPU/double           61.88      15.52     -46.36     -74.9%
+portfolioqaoa_indep_qiskit_17.qasm       CPU/double           41.10      14.24     -26.85     -65.3%
+qpeexact_indep_qiskit_30.qasm            GPU/single           30.70      37.29      +6.60     +21.5%
+wstate_indep_qiskit_30.qasm              CPU/double            9.65      10.27      +0.62      +6.4%
+qft_indep_qiskit_130.qasm                CPU/single          246.62     624.39    +377.77    +153.2%
+qft_indep_qiskit_130.qasm                CPU/double         1174.03    1485.14    +311.11     +26.5%
+grover-noancilla_indep_qiskit_11.qasm    CPU/single            3.81      22.29     +18.48    +485.4%
+portfoliovqe_indep_qiskit_10.qasm        CPU/single            4.81       6.28      +1.48     +30.7%
+portfolioqaoa_indep_qiskit_17.qasm       GPU/single           23.95      11.07     -12.88     -53.8%
+ghz_indep_qiskit_15.qasm                 GPU/double            4.67       5.85      +1.18     +25.3%
+groundstate_large_indep_qiskit_14.qasm   GPU/double           28.21      20.73      -7.48     -26.5%
+ghz_indep_qiskit_130.qasm                GPU/double           42.41      41.09      -1.32      -3.1%
+dj_indep_qiskit_30.qasm                  GPU/double          124.95      61.01     -63.94     -51.2%
+wstate_indep_qiskit_15.qasm              GPU/single            3.98       4.21      +0.23      +5.7%
+grover-v-chain_indep_qiskit_7.qasm       CPU/double            2.67       2.71      +0.05      +1.8%
+wstate_indep_qiskit_130.qasm             CPU/double           40.51      42.78      +2.27      +5.6%
+ae_indep_qiskit_20.qasm                  GPU/single            6.92       6.97      +0.05      +0.7%
+qpeexact_indep_qiskit_100.qasm           CPU/single          283.07     587.27    +304.19    +107.5%
+ghz_indep_qiskit_30.qasm                 GPU/single            8.17       8.50      +0.33      +4.0%
+qft_indep_qiskit_15.qasm                 CPU/single            3.90       5.64      +1.75     +44.8%
+qftentangled_indep_qiskit_30.qasm        CPU/double           70.15      55.43     -14.72     -21.0%
+dj_indep_qiskit_15.qasm                  GPU/single            6.38       6.30      -0.08      -1.2%
+dj_indep_qiskit_30.qasm                  CPU/single           22.73      26.54      +3.81     +16.8%
+----------------------------------------------------------------------------------------------------
+
+Summary Statistics:
+  R² Score:             0.776
+  RMSE:                 110.22 seconds
+  MAE:                  44.19 seconds
+  MAPE:                 47.5%
+
+Error Distribution:
+  Within ±10%:          9/28 (32.1%)
+  Within ±25%:          14/28 (50.0%)
+  Within ±50%:          21/28 (75.0%)
+
+====================================================================================================
+VALIDATION SUMMARY - ENHANCED MODELS
+====================================================================================================
+
+Threshold Classifier:
+  ✓ Accuracy: 96.4%
+  ✓ Under-predictions: 0 (CRITICAL: must be zero!)
+  ✓ Conservative bias: 1 predictions bumped up
+
+Runtime Regressor (Enhanced with 86 features):
+  ✓ R² Score: 0.776
+  ✓ MAPE: 47.5%
+  ✓ 14/28 predictions within ±25%
+
+Comparison with Baseline:
+  Baseline (68 features): MAPE = 38.6%
+  Enhanced (86 features): MAPE = 47.5%
+
+✅ THRESHOLD SAFETY: PERFECT
+   Conservative bias successfully prevents catastrophic under-predictions.
+
+⚠️  RUNTIME: Overfitting detected (too many features for 137 samples)

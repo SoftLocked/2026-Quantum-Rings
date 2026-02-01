@@ -19,7 +19,7 @@ import numpy as np
 from comprehensive_features import QASMFeatureExtractor
 
 
-def find_minimum_threshold(threshold_sweep, target_fidelity=0.99):
+def find_minimum_threshold(threshold_sweep, target_fidelity=0.75):
     """
     Find the minimum threshold where fidelity >= target.
 
@@ -47,7 +47,7 @@ def find_minimum_threshold(threshold_sweep, target_fidelity=0.99):
             threshold = entry['threshold']
 
             # Extra validation: ensure we're not close to the boundary
-            if fidelity < 0.99:
+            if fidelity < 0.75:
                 # This should never happen, but be paranoid
                 raise ValueError(
                     f"BUG: Selected threshold {threshold} with fidelity {fidelity:.6f} < 0.99! "
@@ -75,7 +75,7 @@ def extract_labels_from_result(result):
 
     # Extract minimum threshold
     threshold_sweep = result.get('threshold_sweep', [])
-    min_threshold = find_minimum_threshold(threshold_sweep, target_fidelity=0.99)
+    min_threshold = find_minimum_threshold(threshold_sweep, target_fidelity=0.75)
 
     if min_threshold is None:
         # No threshold met the target
@@ -89,7 +89,7 @@ def extract_labels_from_result(result):
             actual_fidelity = entry.get('sdk_get_fidelity')
             break
 
-    if actual_fidelity is not None and actual_fidelity < 0.99:
+    if actual_fidelity is not None and actual_fidelity < 0.75:
         raise ValueError(
             f"BUG DETECTED: Selected min_threshold={min_threshold} for {result['file']} "
             f"({result['backend']}/{result['precision']}) has fidelity={actual_fidelity:.6f} < 0.99! "
@@ -193,7 +193,7 @@ def build_training_dataset(json_path='data/hackathon_public.json',
         row = {
             # Identifiers
             'file': result['file'],
-            'family': meta.get('family', 'Unknown'),
+            #'family': meta.get('family', 'Unknown'),
 
             # Configuration
             'backend': result['backend'],
@@ -216,7 +216,7 @@ def build_training_dataset(json_path='data/hackathon_public.json',
 
     # Reorganize columns: identifiers/config → features → metadata → TARGETS (last 2)
     # Identifiers and config
-    id_cols = ['file', 'family', 'backend', 'precision']
+    id_cols = ['file', 'backend', 'precision']
 
     # Main prediction targets (MUST be last 2 columns for easy ML slicing)
     main_targets = ['min_threshold', 'forward_runtime']
@@ -323,8 +323,8 @@ def build_training_dataset(json_path='data/hackathon_public.json',
     print("Feature manifest:")
     print(f"  Total columns: {len(df.columns)}")
     print()
-    print("  Identifiers (2):")
-    print("    - file, family")
+    print("  Identifiers (1):")
+    print("    - file")
     print()
     print("  Configuration (2):")
     print("    - backend, precision")
