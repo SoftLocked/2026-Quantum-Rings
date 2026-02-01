@@ -214,24 +214,29 @@ def build_training_dataset(json_path='data/hackathon_public.json',
     # Create DataFrame
     df = pd.DataFrame(rows)
 
-    # Reorganize columns: identifiers/config → features → metadata → TARGETS (last 2)
-    # Identifiers and config
-    id_cols = ['file', 'family', 'backend', 'precision']
+    # Reorganize columns: file (reference) → config → features → TARGETS (last 2)
+    # File identifier (keep for reference, won't be used in training)
+    id_cols = ['file']
+
+    # Configuration (available at prediction time)
+    config_cols = ['backend', 'precision']
 
     # Main prediction targets (MUST be last 2 columns for easy ML slicing)
     main_targets = ['min_threshold', 'forward_runtime']
 
-    # Metadata (useful but not primary targets)
-    metadata_cols = ['max_fidelity_achieved', 'forward_shots',
-                     'forward_peak_rss_mb', 'n_thresholds_tested']
-    metadata_cols = [c for c in metadata_cols if c in df.columns]
+    # Columns NOT available at prediction time - exclude from CSV
+    exclude_from_csv = [
+        'family',  # Not in holdout data
+        'max_fidelity_achieved', 'forward_shots', 'forward_peak_rss_mb', 'n_thresholds_tested'  # Runtime metadata
+    ]
 
-    # Feature columns (everything else in between)
-    all_special = id_cols + main_targets + metadata_cols
+    # Feature columns (everything else: QASM-derived features)
+    all_special = id_cols + config_cols + main_targets + exclude_from_csv
     feature_cols = [c for c in df.columns if c not in all_special]
 
-    # Reorder: identifiers → features → metadata → TARGETS (last)
-    df = df[id_cols + feature_cols + metadata_cols + main_targets]
+    # Reorder: file → config → features → TARGETS (last)
+    # NOTE: file kept for reference only, not used in training
+    df = df[id_cols + config_cols + feature_cols + main_targets]
 
     # Data quality checks
     print("="*80)
@@ -289,20 +294,19 @@ def build_training_dataset(json_path='data/hackathon_public.json',
     print("Top circuit features (by variance):")
     # Select numeric features only
     numeric_features = df.select_dtypes(include=[np.number]).columns
-    # Exclude labels and identifiers
-    exclude_cols = ['min_threshold', 'forward_runtime', 'forward_shots',
-                   'forward_peak_rss_mb', 'max_fidelity_achieved', 'n_thresholds_tested']
-    feature_cols = [c for c in numeric_features if c not in exclude_cols]
+    # Exclude labels and identifiers (metadata already excluded from CSV)
+    exclude_cols = ['min_threshold', 'forward_runtime']
+    feature_cols_for_stats = [c for c in numeric_features if c not in exclude_cols]
 
-    if len(feature_cols) > 0:
-        variances = df[feature_cols].var().sort_values(ascending=False).head(10)
+    if len(feature_cols_for_stats) > 0:
+        variances = df[feature_cols_for_stats].var().sort_values(ascending=False).head(10)
         for feat, var in variances.items():
             print(f"    {feat:30s}: {var:12.2f}")
     print()
 
     # Correlation analysis
     print("Feature correlations with min_threshold (top 10):")
-    correlations = df[feature_cols + ['min_threshold']].corr()['min_threshold'].sort_values(ascending=False)
+    correlations = df[feature_cols_for_stats + ['min_threshold']].corr()['min_threshold'].sort_values(ascending=False)
     correlations = correlations[correlations.index != 'min_threshold'].head(10)
     for feat, corr in correlations.items():
         print(f"    {feat:30s}: {corr:>7.3f}")
@@ -323,18 +327,22 @@ def build_training_dataset(json_path='data/hackathon_public.json',
     print("Feature manifest:")
     print(f"  Total columns: {len(df.columns)}")
     print()
-    print("  Identifiers (2):")
-    print("    - file, family")
+    print("  Identifier (1) - for reference only:")
+    print("    - file")
     print()
     print("  Configuration (2):")
-    print("    - backend, precision")
+    print("    - backend (CPU/GPU), precision (single/double)")
     print()
-    print(f"  Circuit features ({len(feature_cols)}):")
+    print(f"  QASM-derived circuit features ({len(feature_cols)}):")
     print(f"    - {', '.join(feature_cols[:5])}...")
     print()
-    print("  Labels (2 primary):")
+    print("  Targets (2):")
     print("    - min_threshold (classification target)")
     print("    - forward_runtime (regression target)")
+    print()
+    print("  NOTE: Excluded from CSV (not available at prediction time):")
+    print("    - family (not in holdout data)")
+    print("    - max_fidelity_achieved, forward_shots, forward_peak_rss_mb, n_thresholds_tested (runtime metadata)")
     print()
 
     print("="*80)
