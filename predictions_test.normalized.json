@@ -1,0 +1,94 @@
+{
+  "predictions": [
+    {
+      "id": "H001",
+      "predicted_threshold_min": 1,
+      "predicted_forward_wall_s": 24.03
+    },
+    {
+      "id": "H002",
+      "predicted_threshold_min": 1,
+      "predicted_forward_wall_s": 122.81
+    },
+    {
+      "id": "H003",
+      "predicted_threshold_min": 1,
+      "predicted_forward_wall_s": 29.62
+    },
+    {
+      "id": "H004",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 10.05
+    },
+    {
+      "id": "H005",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 8.66
+    },
+    {
+      "id": "H006",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 8.88
+    },
+    {
+      "id": "H007",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 8.6
+    },
+    {
+      "id": "H008",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 11.79
+    },
+    {
+      "id": "H009",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 8.09
+    },
+    {
+      "id": "H010",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 10.52
+    },
+    {
+      "id": "H011",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 8.11
+    },
+    {
+      "id": "H012",
+      "predicted_threshold_min": 1,
+      "predicted_forward_wall_s": 69.49
+    },
+    {
+      "id": "H013",
+      "predicted_threshold_min": 1,
+      "predicted_forward_wall_s": 16.87
+    },
+    {
+      "id": "H014",
+      "predicted_threshold_min": 1,
+      "predicted_forward_wall_s": 65.94
+    },
+    {
+      "id": "H015",
+      "predicted_threshold_min": 1,
+      "predicted_forward_wall_s": 17.87
+    },
+    {
+      "id": "H016",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 77.19
+    },
+    {
+      "id": "H017",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 75.42
+    },
+    {
+      "id": "H018",
+      "predicted_threshold_min": 2,
+      "predicted_forward_wall_s": 25.0
+    }
+  ]
+}
