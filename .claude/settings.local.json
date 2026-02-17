@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "WebFetch(domain:portal.quantumrings.com)",
+      "Bash(python -c:*)",
+      "Bash(pip show:*)",
+      "Bash(where:*)",
+      "Bash(pip:*)",
+      "Bash(conda --version:*)",
+      "Bash(\"C:\\\\Users\\\\hariv\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe\" -c:*)",
+      "Bash(\"C:\\\\Users\\\\hariv\\\\AppData\\\\Local\\\\Python\\\\bin\\\\python.exe\" -c \"import pandas; print\\(''ok''\\)\")"
+    ]
+  }
+}
