@@ -9,7 +9,11 @@
       "Bash(pip:*)",
       "Bash(conda --version:*)",
       "Bash(\"C:\\\\Users\\\\hariv\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe\" -c:*)",
-      "Bash(\"C:\\\\Users\\\\hariv\\\\AppData\\\\Local\\\\Python\\\\bin\\\\python.exe\" -c \"import pandas; print\\(''ok''\\)\")"
+      "Bash(\"C:\\\\Users\\\\hariv\\\\AppData\\\\Local\\\\Python\\\\bin\\\\python.exe\" -c \"import pandas; print\\(''ok''\\)\")",
+      "Bash(python predict_cli.py --help)",
+      "Bash(python predict_cli.py circuits_new/qft_indep_qiskit_30.qasm -v)",
+      "Bash(python predict_cli.py circuits_new/qft_indep_qiskit_30.qasm -p double --conservative --threshold 4)",
+      "Bash(python predict_cli.py circuits_new/ -p single -o /tmp/test_batch.json)"
     ]
   }
 }
